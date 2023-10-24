@@ -1,72 +1,120 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "webapp-helm-chart.fullname" . }}
+  name: {{include "webapp-helm-chart.fullname" .}}
+  namespace: webapp
   labels:
-    {{- include "webapp-helm-chart.labels" . | nindent 4 }}
+    app: webapp
+    service: api
 spec:
-  {{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.replicaCount }}
-  {{- end }}
+  replicas: {{.Values.replicaCount}}
   selector:
     matchLabels:
-      {{- include "webapp-helm-chart.selectorLabels" . | nindent 6 }}
+      app: webapp
+      service: api
+  progressDeadlineSeconds: 120
+  minReadySeconds: 30
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
-      annotations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
       labels:
-        {{- include "webapp-helm-chart.labels" . | nindent 8 }}
-	{{- with .Values.podLabels }}
-        {{- toYaml . | nindent 8 }}
-        {{- end }}
+        app: webapp
+        service: api
     spec:
-      {{- with .Values.imagePullSecrets }}
-      imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      serviceAccountName: {{ include "webapp-helm-chart.serviceAccountName" . }}
-      securityContext:
-        {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{ .Chart.Name }}
-          securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+        - name: {{.Chart.Name}}
+          image: "{{ .Values.image.name }}"
+          imagePullPolicy: {{.Values.image.pullPolicy}}
           ports:
             - name: http
-              containerPort: {{ .Values.service.port }}
+              containerPort: {{.Values.service.port}}
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /
-              port: http
+              path: /healthz
+              port: 3000
+            initialDelaySeconds: 7
+            periodSeconds: 5
+            successThreshold: 1
+            failureThreshold: 7
           readinessProbe:
             httpGet:
-              path: /
-              port: http
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
-          {{- with .Values.volumeMounts }}
-          volumeMounts:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-      {{- with .Values.volumes }}
-      volumes:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.nodeSelector }}
-      nodeSelector:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.affinity }}
-      affinity:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.tolerations }}
-      tolerations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+              path: /healthz
+              port: 3000
+            initialDelaySeconds: 7
+            periodSeconds: 5
+            successThreshold: 7
+            failureThreshold: 7
+          env:
+            - name: HOSTNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: webapp-configmap
+                  key: app_hostname
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: webapp-configmap
+                  key: app_port
+            - name: DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: webapp-configmap
+                  key: app_db
+            - name: DBUSER
+              valueFrom:
+                secretKeyRef:
+                  name: webapp-secrets
+                  key: flyway_user
+            - name: DBPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: webapp-secrets
+                  key: flyway_password
+            - name: DBHOST
+              valueFrom:
+                configMapKeyRef:
+                  name: webapp-configmap
+                  key: app_dbhost
+            - name: DBPORT
+              valueFrom:
+                configMapKeyRef:
+                  name: webapp-configmap
+                  key: app_dbport
+            - name: DBSCHEMA
+              valueFrom:
+                configMapKeyRef:
+                  name: webapp-configmap
+                  key: app_dbschema
+      initContainers:
+        - name: db-migration
+          image: rishabhagarwal14628/migrate:latest
+          imagePullPolicy: Always
+          # set environment variables for flyway db migration
+          env:
+            - name: FLYWAY_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: webapp-configmap
+                  key: flyway_url
+            - name: FLYWAY_USER
+              valueFrom:
+                secretKeyRef:
+                  name: webapp-secrets
+                  key: flyway_user
+            - name: FLYWAY_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: webapp-secrets
+                  key: flyway_password
+            - name: DBSCHEMA
+              valueFrom:
+                configMapKeyRef:
+                  name: webapp-configmap
+                  key: app_dbschema
+          command: ["flyway", "migrate"]

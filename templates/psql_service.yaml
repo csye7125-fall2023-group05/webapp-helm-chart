@@ -1,0 +1,19 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: psql-service
+  namespace: webapp
+  labels:
+    app: webapp
+    service: api
+spec:
+  type: LoadBalancer
+  selector:
+    app: webapp
+    service: api
+  ports:
+    - protocol: TCP
+      name: http
+      port: 5432
+      targetPort: 5432

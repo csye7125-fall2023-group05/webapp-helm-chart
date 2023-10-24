@@ -1,0 +1,58 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: psql-db
+  namespace: webapp
+spec:
+  selector:
+    matchLabels:
+      app: webapp
+      service: api
+  serviceName: "psql-service"
+  replicas: 3 # by default is 1
+  minReadySeconds: 10 # by default is 0
+  persistentVolumeClaimRetentionPolicy:
+    whenDeleted: Retain
+  template:
+    metadata:
+      labels:
+        # app: nginx # has to match .spec.selector.matchLabels
+        app: webapp
+        service: api
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: postgres-webapp-db
+          image: postgres:14-alpine
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: webapp-secrets
+                  key: flyway_user
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: webapp-secrets
+                  key: flyway_password
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: webapp-configmap
+                  key: app_db
+
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: postgresql-db-disk
+              mountPath: /data
+  volumeClaimTemplates:
+    - metadata:
+        name: postgresql-db-disk
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        # storageClassName: "my-storage-class"
+        resources:
+          requests:
+            storage: 1Gi
