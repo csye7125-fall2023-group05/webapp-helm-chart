@@ -3,10 +3,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: psql-service
-  namespace: webapp
-  labels:
-    app: webapp
-    service: api
+  namespace: {{ .Values.namespace }}
+  {{- template "webapp-helm-chart.labels" .}}
 spec:
   type: LoadBalancer
   selector:
@@ -15,5 +13,5 @@ spec:
   ports:
     - protocol: TCP
       name: http
-      port: 5432
-      targetPort: 5432
+      port: {{ .Values.service.dbport }}
+      targetPort: {{ .Values.service.dbport }}

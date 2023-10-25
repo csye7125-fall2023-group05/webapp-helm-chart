@@ -2,17 +2,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: webapp-configmap
-  namespace: webapp
-  labels:
-    app: webapp
-    service: api
+  name: {{ .Release.Name }}-configmap
+  namespace: {{ .Values.namespace }}
+  {{- template "webapp-helm-chart.labels" .}}
 data:
-  # Configuration values can be set as key-value properties
-  flyway_url: jdbc:postgresql://psql-db-0.psql-service.webapp.svc.cluster.local:5432/app
-  app_hostname: localhost
-  app_port: "3000"
-  app_db: app
-  app_dbhost: psql-db-0.psql-service.webapp.svc.cluster.local
-  app_dbport: "5432"
-  app_dbschema: app
+  {{- template "webapp-helm-chart.configMap" .}}
+

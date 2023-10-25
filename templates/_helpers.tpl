@@ -33,13 +33,10 @@ Create chart name and version as used by the chart label.
 {{/*
 Common labels
 */}}
-{{- define "webapp-helm-chart.labels" -}}
-helm.sh/chart: {{ include "webapp-helm-chart.chart" . }}
-{{ include "webapp-helm-chart.selectorLabels" . }}
-{{- if .Chart.AppVersion }}
-app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
-{{- end }}
-app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- define "webapp-helm-chart.labels" }}
+  labels:
+    app: {{ .Values.podLabel.app }}
+    service: {{ .Values.podLabel.service }}
 {{- end }}
 
 {{/*
@@ -51,12 +48,16 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
-Create the name of the service account to use
+ConfigMap data
 */}}
-{{- define "webapp-helm-chart.serviceAccountName" -}}
-{{- if .Values.serviceAccount.create }}
-{{- default (include "webapp-helm-chart.fullname" .) .Values.serviceAccount.name }}
-{{- else }}
-{{- default "default" .Values.serviceAccount.name }}
-{{- end }}
+{{- define "webapp-helm-chart.configMap" }}
+  {{- with .Values.config }}
+  flyway_url: "jdbc:postgresql://psql-db-0.psql-service.{{ .namespace }}.svc.cluster.local:{{ .app_dbport}}/{{ .app_db }}"
+  app_hostname: {{ .app_hostname }}
+  app_port: {{ .app_port | quote }}
+  app_db: {{ .app_db }}
+  app_dbhost: "psql-db-0.psql-service.{{ .namespace }}.svc.cluster.local"
+  app_dbport: {{ .app_dbport | quote }}
+  app_dbschema: {{ .app_dbschema }}
+  {{- end }}
 {{- end }}

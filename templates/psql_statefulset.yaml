@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: psql-db
-  namespace: webapp
+  namespace: {{.Values.namespace}}
 spec:
   selector:
     matchLabels:
@@ -29,17 +29,17 @@ spec:
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
-                  name: webapp-secrets
+                  name: {{ .Release.Name }}-secrets
                   key: flyway_user
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: webapp-secrets
+                  name: {{ .Release.Name }}-secrets
                   key: flyway_password
             - name: POSTGRES_DB
               valueFrom:
                 configMapKeyRef:
-                  name: webapp-configmap
+                  name: {{ .Release.Name }}-configmap
                   key: app_db
 
           ports:
