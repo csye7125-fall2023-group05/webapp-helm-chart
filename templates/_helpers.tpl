@@ -61,3 +61,29 @@ ConfigMap data
   app_dbschema: {{ .app_dbschema }}
   {{- end }}
 {{- end }}
+
+{{/*
+Liveness probe
+*/}}
+{{- define "webapp-helm-chart.livenessProbe" }}
+            httpGet:
+              path: {{ .Values.probes.path }}
+              port: {{ .Values.service.port }}
+            initialDelaySeconds: 7
+            periodSeconds: 5
+            successThreshold: 1
+            failureThreshold: 7
+{{- end }}
+
+{{/*
+Readiness probe
+*/}}
+{{- define "webapp-helm-chart.readinessProbe" }}
+            httpGet:
+              path: {{ .Values.probes.path }}
+              port: {{ .Values.service.port }}
+            initialDelaySeconds: 7
+            periodSeconds: 5
+            successThreshold: 1
+            failureThreshold: 7
+{{- end }}

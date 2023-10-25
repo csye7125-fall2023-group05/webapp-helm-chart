@@ -124,6 +124,13 @@ helm lint webapp-helm-chart
 helm install webapp-helm-release webapp-helm-chart
 ```
 
+- To update a chart in an already running k8s cluster:
+
+```bash
+# helm upgrade [release-name] [chart-name]
+helm upgrade webapp-helm-release webapp-helm-chart
+```
+
 - To uninstall a chart, use:
 
 ```bash
