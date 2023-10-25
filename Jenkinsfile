@@ -23,7 +23,7 @@ pipeline {
           npm install semantic-release-helm
           npm install @semantic-release/git
           npm install @semantic-release/github
-          GITHUB_TOKEN=GH_TOKEN npx semantic-release
+          npx semantic-release
           '''
       }
     }
