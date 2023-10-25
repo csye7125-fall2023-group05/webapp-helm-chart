@@ -11,6 +11,9 @@ pipeline {
       }
     }
     stage ('Release with SemVer') {
+      tools {
+        nodejs "node LTS"
+      }
       steps {
         withCredentials([usernamePassword(credentialsId: 'jenkins-sydrawat', usernameVariable : 'USERNAME', passwordVariable: 'PASSWORD')]) {
           sh '''
