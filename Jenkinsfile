@@ -12,7 +12,10 @@ pipeline {
     }
     stage ('Release with SemVer') {
       tools {
-        nodejs "node LTS"
+        nodejs "node"
+      }
+      when {
+        branch 'master'
       }
       steps {
           sh '''
