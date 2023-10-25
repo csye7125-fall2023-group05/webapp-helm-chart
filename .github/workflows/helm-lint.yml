@@ -16,7 +16,6 @@ jobs:
       - name: Linting the Helm Chart
         run: |
           pwd
-          cd webapp-helm-chart
           helm lint .
         shell: bash
 

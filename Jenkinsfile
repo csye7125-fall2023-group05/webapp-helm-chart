@@ -15,7 +15,6 @@ pipeline {
         nodejs "node LTS"
       }
       steps {
-        withCredentials([usernamePassword(credentialsId: 'jenkins-sydrawat', usernameVariable : 'USERNAME', passwordVariable: 'PASSWORD')]) {
           sh '''
           npm install @semantic-release/commit-analyzer
           npm install @semantic-release/release-notes-generator
@@ -23,9 +22,8 @@ pipeline {
           npm install semantic-release-helm
           npm install @semantic-release/git
           npm install @semantic-release/github
-          GITHUB_TOKEN=PASSWORD npx semantic-release
+          GITHUB_TOKEN=GH_TOKEN npx semantic-release
           '''
-        }
       }
     }
   }
