@@ -1,5 +1,6 @@
 pipeline {
   agent any
+  tools { nodejs "node" }
   environment {
     GH_TOKEN = credentials('jenkins-sydrawat')
   }
@@ -11,9 +12,6 @@ pipeline {
       }
     }
     stage ('Release with SemVer') {
-      tools {
-        nodejs "node"
-      }
       when {
         branch 'master'
       }
