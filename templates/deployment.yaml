@@ -2,8 +2,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{include "webapp-helm-chart.fullname" .}}
-  namespace: webapp
+  name: {{ .Release.Name }}-deployment
+  namespace: {{ .Values.namespace }}
   labels:
     app: webapp
     service: api
@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
         - name: {{.Chart.Name}}
-          image: "{{ .Values.image.name }}"
+          image: {{ .Values.image.containerImg }}
           imagePullPolicy: {{.Values.image.pullPolicy}}
           ports:
             - name: http
@@ -36,85 +36,85 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /healthz
-              port: 3000
+              path: {{.Values.probes.path}}
+              port: {{.Values.service.port}}
             initialDelaySeconds: 7
             periodSeconds: 5
             successThreshold: 1
             failureThreshold: 7
           readinessProbe:
             httpGet:
-              path: /healthz
-              port: 3000
+              path: {{.Values.probes.path}}
+              port: {{.Values.service.port}}
             initialDelaySeconds: 7
             periodSeconds: 5
-            successThreshold: 7
+            successThreshold: 1
             failureThreshold: 7
           env:
             - name: HOSTNAME
               valueFrom:
                 configMapKeyRef:
-                  name: webapp-configmap
+                  name: {{ .Release.Name }}-configmap
                   key: app_hostname
             - name: PORT
               valueFrom:
                 configMapKeyRef:
-                  name: webapp-configmap
+                  name: {{ .Release.Name }}-configmap
                   key: app_port
             - name: DATABASE
               valueFrom:
                 configMapKeyRef:
-                  name: webapp-configmap
+                  name: {{ .Release.Name }}-configmap
                   key: app_db
             - name: DBUSER
               valueFrom:
                 secretKeyRef:
-                  name: webapp-secrets
+                  name: {{ .Release.Name }}-secrets
                   key: flyway_user
             - name: DBPASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: webapp-secrets
+                  name: {{ .Release.Name }}-secrets
                   key: flyway_password
             - name: DBHOST
               valueFrom:
                 configMapKeyRef:
-                  name: webapp-configmap
+                  name: {{ .Release.Name }}-configmap
                   key: app_dbhost
             - name: DBPORT
               valueFrom:
                 configMapKeyRef:
-                  name: webapp-configmap
+                  name: {{ .Release.Name }}-configmap
                   key: app_dbport
             - name: DBSCHEMA
               valueFrom:
                 configMapKeyRef:
-                  name: webapp-configmap
+                  name: {{ .Release.Name }}-configmap
                   key: app_dbschema
       initContainers:
         - name: db-migration
-          image: rishabhagarwal14628/migrate:latest
-          imagePullPolicy: Always
+          image: {{ .Values.image.initContainerImg }}
+          imagePullPolicy: {{.Values.image.pullPolicy}}
           # set environment variables for flyway db migration
           env:
             - name: FLYWAY_URL
               valueFrom:
                 configMapKeyRef:
-                  name: webapp-configmap
+                  name: {{ .Release.Name }}-configmap
                   key: flyway_url
             - name: FLYWAY_USER
               valueFrom:
                 secretKeyRef:
-                  name: webapp-secrets
+                  name: {{ .Release.Name }}-secrets
                   key: flyway_user
             - name: FLYWAY_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: webapp-secrets
+                  name: {{ .Release.Name }}-secrets
                   key: flyway_password
             - name: DBSCHEMA
               valueFrom:
                 configMapKeyRef:
-                  name: webapp-configmap
+                  name: {{ .Release.Name }}-configmap
                   key: app_dbschema
           command: ["flyway", "migrate"]

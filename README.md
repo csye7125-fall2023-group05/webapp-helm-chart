@@ -83,6 +83,8 @@ annotations:
 
 > As of `v3.3.2`, additional fields are not allowed. The recommended approach is to add custom metadata in `annotations`.
 
+To know more about how to work with `values.yaml` and `./templates/_helpers.tpl`, i.e., using template functions and variables in Helm, refer the [official documentation](https://helm.sh/docs/chart_template_guide/).
+
 ## Using charts in Helm
 
 - To create a chart:
@@ -90,13 +92,6 @@ annotations:
 ```bash
 # helm create [chart-name]
 helm create webapp-helm-chart
-```
-
-- To install a chart onto a k8s cluster:
-
-```bash
-# helm install [release-name] [chart-name]
-helm install webapp-helm-release webapp-helm-chart
 ```
 
 - To debug your k8s configuration and test it against the k8s api server, use the following command:
@@ -120,6 +115,13 @@ helm template webapp-helm-chart
 ```bash
 # helm lint [chart-name]
 helm lint webapp-helm-chart
+```
+
+- To install a chart onto a k8s cluster:
+
+```bash
+# helm install [release-name] [chart-name]
+helm install webapp-helm-release webapp-helm-chart
 ```
 
 - To uninstall a chart, use:
