@@ -24,7 +24,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
         - name: postgres-webapp-db
-          image: postgres:14-alpine
+          image: {{ .Values.psql.image}}:{{ .Values.psql.tag }}
           env:
             - name: POSTGRES_USER
               valueFrom:
