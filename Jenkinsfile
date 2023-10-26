@@ -2,7 +2,7 @@ pipeline {
   agent any
   tools { nodejs "node" }
   environment {
-    GH_TOKEN = credentials('jenkins-sydrawat')
+    GH_TOKEN = credentials('jenkins-pat')
   }
   stages {
     stage ('Checkout Code') {
