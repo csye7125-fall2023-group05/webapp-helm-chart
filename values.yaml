@@ -14,28 +14,51 @@ image:
 
 namespace: webapp
 
+deployStrat:
+  rolling: RollingUpdate
+  maxSurge: 1
+  maxUnavailable: 0
+
+progressDeadlineSeconds: 120
+minReadySeconds: 30
+
 probes:
   path: /healthz
 
 config:
-  namespace: webapp
   app_hostname: localhost
   app_port: "3000"
   app_db: app
   app_dbport: "5432"
   app_dbschema: app
 
+secret:
+  type: Opaque
+  username: app_user
+  password: app_user@pswd
+
 podLabel:
   app: webapp
   service: api
 
 psql:
+  version: "13.1.5"
+  repository: https://charts.bitnami.com/bitnami
+  enabled: true
   image: postgres
   tag: 14-alpine
 
 selectorLabel:
   app: webapp
   service: api
+
+livenessConfig:
+  initialDelaySeconds: 40
+  periodSeconds: 10
+
+readinessConfig:
+  initialDelaySeconds: 40
+  periodSeconds: 10
 
 service:
   type: LoadBalancer
@@ -54,3 +77,11 @@ volumeMounts: []
 # - name: foo
 #   mountPath: "/etc/foo"
 #   readOnly: true
+
+global:
+  postgresql:
+    auth:
+      postgresPassword: root
+      username: app_user
+      password: app_user@pswd
+      database: app

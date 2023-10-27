@@ -34,9 +34,8 @@ Create chart name and version as used by the chart label.
 Common labels
 */}}
 {{- define "webapp-helm-chart.labels" }}
-  labels:
-    app: {{ .Values.podLabel.app }}
-    service: {{ .Values.podLabel.service }}
+app: {{ .Values.podLabel.app }}
+service: {{ .Values.podLabel.service }}
 {{- end }}
 
 {{/*
@@ -50,15 +49,25 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{/*
 ConfigMap data
 */}}
-{{- define "webapp-helm-chart.configMap" }}
+{{- define "webapp-helm-chart.configData" }}
+  flyway_url: "jdbc:postgresql://{{ include "postgresql.v1.primary.fullname" .Subcharts.postgresql }}-0.{{  include "postgresql.v1.primary.svc.headless" .Subcharts.postgresql }}.{{ .Values.namespace }}.svc.cluster.local:{{ .Values.config.app_dbport}}/{{ .Values.config.app_db }}"
+  app_dbhost: "{{ include "postgresql.v1.primary.fullname" .Subcharts.postgresql }}-0.{{  include "postgresql.v1.primary.svc.headless" .Subcharts.postgresql }}.{{ .Values.namespace }}.svc.cluster.local"
   {{- with .Values.config }}
-  flyway_url: "jdbc:postgresql://psql-db-0.psql-service.{{ .namespace }}.svc.cluster.local:{{ .app_dbport}}/{{ .app_db }}"
   app_hostname: {{ .app_hostname }}
   app_port: {{ .app_port | quote }}
   app_db: {{ .app_db }}
-  app_dbhost: "psql-db-0.psql-service.{{ .namespace }}.svc.cluster.local"
   app_dbport: {{ .app_dbport | quote }}
   app_dbschema: {{ .app_dbschema }}
+  {{- end }}
+{{- end }}
+
+{{/*
+Secret data
+*/}}
+{{- define "webapp-helm-chart.secretData" }}
+  {{- with .Values.secret }}
+  flyway_user: {{ .username | b64enc }}
+  flyway_password: {{ .password | b64enc }}
   {{- end }}
 {{- end }}
 
@@ -66,24 +75,32 @@ ConfigMap data
 Liveness probe
 */}}
 {{- define "webapp-helm-chart.livenessProbe" }}
-            httpGet:
-              path: {{ .Values.probes.path }}
-              port: {{ .Values.service.port }}
-            initialDelaySeconds: 7
-            periodSeconds: 5
-            successThreshold: 1
-            failureThreshold: 7
+  httpGet:
+    path: {{ .Values.probes.path }}
+    port: {{ .Values.service.port }}
+  initialDelaySeconds: {{ .Values.livenessConfig.initialDelaySeconds }}
+  periodSeconds: {{ .Values.livenessConfig.periodSeconds }}
 {{- end }}
 
 {{/*
 Readiness probe
 */}}
 {{- define "webapp-helm-chart.readinessProbe" }}
-            httpGet:
-              path: {{ .Values.probes.path }}
-              port: {{ .Values.service.port }}
-            initialDelaySeconds: 7
-            periodSeconds: 5
-            successThreshold: 1
-            failureThreshold: 7
+  httpGet:
+    path: {{ .Values.probes.path }}
+    port: {{ .Values.service.port }}
+  initialDelaySeconds: {{ .Values.readinessConfig.initialDelaySeconds }}
+  periodSeconds: {{ .Values.readinessConfig.periodSeconds }}
+{{- end }}
+
+{{/*
+Deployment Strategy
+*/}}
+{{- define "webapp-helm-chart.deployStrategy" }}
+{{- with .Values.deployStrat }}
+type: {{ .rolling }}
+rollingUpdate:
+  maxSurge: {{ .maxSurge }}
+  maxUnavailable: {{ .maxUnavailable}}
+{{- end }}
 {{- end }}

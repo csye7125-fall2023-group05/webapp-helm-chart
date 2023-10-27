@@ -4,7 +4,6 @@ kind: ConfigMap
 metadata:
   name: {{ .Release.Name }}-configmap
   namespace: {{ .Values.namespace }}
-  {{- template "webapp-helm-chart.labels" .}}
+  labels: {{include "webapp-helm-chart.labels" . | indent 4 }}
 data:
-  {{- template "webapp-helm-chart.configMap" .}}
-
+  {{- template "webapp-helm-chart.configData" .}}

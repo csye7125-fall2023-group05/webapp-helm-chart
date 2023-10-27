@@ -4,40 +4,28 @@ kind: Deployment
 metadata:
   name: {{ .Release.Name }}-deployment
   namespace: {{ .Values.namespace }}
-  labels:
-    app: webapp
-    service: api
+  labels: {{ include "webapp-helm-chart.labels" . | indent 4 }}
 spec:
-  replicas: {{.Values.replicaCount}}
+  replicas: {{ .Values.replicaCount }}
   selector:
-    matchLabels:
-      app: webapp
-      service: api
-  progressDeadlineSeconds: 120
-  minReadySeconds: 30
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 0
+    matchLabels: {{ include "webapp-helm-chart.labels" . | indent 6 }}
+  progressDeadlineSeconds: {{ .Values.progressDeadlineSeconds }}
+  minReadySeconds: {{ .Values.minReadySeconds }}
+  strategy: {{ include "webapp-helm-chart.deployStrategy" . | indent 4 }}
   template:
     metadata:
-      labels:
-        app: webapp
-        service: api
+      labels: {{ include "webapp-helm-chart.labels" . | indent 8 }}
     spec:
       containers:
-        - name: {{.Chart.Name}}
+        - name: {{ .Chart.Name }}
           image: {{ .Values.image.containerImg }}
-          imagePullPolicy: {{.Values.image.pullPolicy}}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: {{.Values.service.port}}
+              containerPort: {{ .Values.service.port }}
               protocol: TCP
-          livenessProbe:
-          {{- template "webapp-helm-chart.livenessProbe" .}}
-          readinessProbe:
-          {{- template "webapp-helm-chart.readinessProbe" .}}
+          livenessProbe: {{ include "webapp-helm-chart.livenessProbe" . | indent 10 }}
+          readinessProbe: {{ include "webapp-helm-chart.readinessProbe" . | indent 10 }}
           env:
             - name: HOSTNAME
               valueFrom:
