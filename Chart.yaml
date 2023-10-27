@@ -15,3 +15,8 @@ maintainers:
     email: agarwal.risha@northeastern.edu
   - name: Karan Wadhwa
     email: wadhwa.k@northeastern.edu
+dependencies:
+  - name: postgresql
+    version: "13.1.5"
+    repository: https://charts.bitnami.com/bitnami
+    condition: psql.enabled

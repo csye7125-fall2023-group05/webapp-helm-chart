@@ -138,9 +138,56 @@ helm upgrade webapp-helm-release webapp-helm-chart
 helm uninstall webapp-helm-release
 ```
 
--Once you have edited a chart, helm can package it into a chart archive for you:
+- To update your helm dependencies, use the command:
+
+```bash
+helm dependency upgrade
+```
+
+- Once you have edited a chart, helm can package it into a chart archive for you:
 
 ```bash
 # helm package [chart-name]
 helm package webapp-helm-chart
+```
+
+## 📈 Chart Dependencies
+
+In case we want to use another chart as a dependency for our custom Helm chart, we can use them by adding a `dependencies` section in the `Chart.yaml`.
+
+- For our use-case, let us assume we need a Postgresql Helm chart. In order to add it as a dependency for our custom chart, we need to edit the following files with the given example code:
+
+```yaml
+# values.yaml
+psql:
+  enabled: true
+```
+
+```yaml
+# Chart.yaml
+dependencies:
+  - name: postgresql
+    version: "13.1.5"
+    repository: https://charts.bitnami.com/bitnami
+    condition: psql.enabled # referenced from `values.yaml`
+```
+
+- Now we need to add the `bitnami` Helm repository, we can do that by running:
+
+```bash
+# add bitnami to repositories
+helm repo add bitnami https://charts.bitnami.com/bitnami
+```
+
+- Pull the `postgresql` Helm chart from the bitnami repo:
+
+```bash
+# the --untar will untar the bitnami/postgresql Helm chart
+helm pull bitnami/postgresql --untar
+```
+
+- To add the latest "pulled" `bitnami/postgresql` Helm chart as a dependency to our custom Helm chart:
+
+```bash
+helm dependency update
 ```

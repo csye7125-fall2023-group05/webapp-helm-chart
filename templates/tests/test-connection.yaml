@@ -2,8 +2,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: "{{ include "webapp-helm-chart.fullname" . }}-test-connection"
-  labels:
-    {{- include "webapp-helm-chart.labels" . | nindent 4 }}
+  labels: {{include "webapp-helm-chart.labels" . | indent 4 }}
   annotations:
     "helm.sh/hook": test
 spec:
