@@ -16,6 +16,8 @@ spec:
     metadata:
       labels: {{ include "webapp-helm-chart.labels" . | indent 8 }}
     spec:
+      imagePullSecrets:
+        - name: {{ .Release.Name}}-robocop
       containers:
         - name: {{ .Chart.Name }}
           image: {{ .Values.image.containerImg }}
