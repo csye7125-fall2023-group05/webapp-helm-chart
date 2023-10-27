@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/compare/v1.1.0...v1.1.1) (2023-10-27)
+
+
+### Bug Fixes
+
+* update warning on postgresql statefulset auth configuration ([27a1bc5](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/commit/27a1bc5f1612b466a9259a9d4afa7fbdd31203ad))
+
 # [1.1.0](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/compare/v1.0.0...v1.1.0) (2023-10-27)
 
 
