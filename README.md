@@ -172,6 +172,8 @@ dependencies:
     condition: psql.enabled # referenced from `values.yaml`
 ```
 
+> NOTE: You also need to overwrite the postgresql database username and passwords in order for the webapp to connect to the postgresql stateful set with the correct user.
+
 - Now we need to add the `bitnami` Helm repository, we can do that by running:
 
 ```bash
