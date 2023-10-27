@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/compare/v1.0.0...v1.1.0) (2023-10-27)
+
+
+### Features
+
+* add bitnami/postgresql chart dependency ([ab981a4](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/commit/ab981a49e6f7813bd7965fd419a95781e8911546)), closes [#5](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/issues/5) [#16](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/issues/16)
+
 # 1.0.0 (2023-10-26)
 
 
