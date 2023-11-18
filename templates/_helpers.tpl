@@ -58,6 +58,18 @@ ConfigMap data
   app_db: {{ .app_db }}
   app_dbport: {{ .app_dbport | quote }}
   app_dbschema: {{ .app_dbschema }}
+  k8s_group: {{ .k8s_group }}
+  k8s_api_version: {{ .k8s_api_version }}
+  k8s_cr_kind: {{ .k8s_cr_kind }}
+  k8s_cr_kind_plural: {{ .k8s_cr_kind_plural }}
+  k8s_namespace: {{ .k8s_namespace }}
+  k8s_broker_0: {{ .k8s_broker_0 }}
+  k8s_broker_1: {{ .k8s_broker_1 }}
+  k8s_broker_2: {{ .k8s_broker_2 }}
+  k8s_client_id: {{ .k8s_client_id }}
+  k8s_docker_config_json: {{ .k8s_docker_config_json }}
+  k8s_topic: {{ .k8s_topic }}
+
   {{- end }}
 {{- end }}
 
