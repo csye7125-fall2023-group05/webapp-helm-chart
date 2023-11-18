@@ -69,6 +69,61 @@ spec:
                 configMapKeyRef:
                   name: {{ .Release.Name }}-configmap
                   key: app_dbschema
+            - name: K8S_GROUP
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Release.Name }}-configmap
+                  key: k8s_group
+            - name: K8S_API_VERSION
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Release.Name }}-configmap
+                  key: k8s_api_version
+            - name: K8S_CR_KIND
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Release.Name }}-configmap
+                  key: k8s_cr_kind
+            - name: K8S_CR_KIND_PLURAL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Release.Name }}-configmap
+                  key: k8s_cr_kind_plural
+            - name: K8S_NAMESPACE
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Release.Name }}-configmap
+                  key: k8s_namespace
+            - name: K8S_BROKER_0
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Release.Name }}-configmap
+                  key: k8s_broker_0
+            - name: K8S_BROKER_1
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Release.Name }}-configmap
+                  key: k8s_broker_1
+            - name: K8S_BROKER_2
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Release.Name }}-configmap
+                  key: k8s_broker_2
+            - name: K8S_CLIENT_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Release.Name }}-configmap
+                  key: k8s_client_id
+            - name: K8S_DOCKER_CONFIG_JSON
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Release.Name }}-configmap
+                  key: k8s_docker_config_json
+            - name: K8S_TOPIC
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Release.Name }}-configmap
+                  key: k8s_topic
       initContainers:
         - name: db-migration
           image: {{ .Values.image.initContainerImg }}

@@ -31,6 +31,17 @@ config:
   app_db: app
   app_dbport: "5432"
   app_dbschema: app
+  k8s_group: webappcron.csye7125-fall2023-group05.cloud
+  k8s_api_version: v1
+  k8s_cr_kind: Cron
+  k8s_cr_kind_plural: crons
+  k8s_namespace: default
+  k8s_broker_0: infra-helm-release-kafka-broker-0.infra-helm-release-kafka-broker-headless.webapp.svc.cluster.local:9094
+  k8s_broker_1: infra-helm-release-kafka-broker-1.infra-helm-release-kafka-broker-headless.webapp.svc.cluster.local:9094
+  k8s_broker_2: infra-helm-release-kafka-broker-2.infra-helm-release-kafka-broker-headless.webapp.svc.cluster.local:9094
+  k8s_client_id: webapp
+  k8s_docker_config_json: ewogICJhdXRocyI6IHsKICAgICJxdWF5LmlvIjogewogICAgICAiYXV0aCI6ICJjSGR1WTI5eWNDdHliMkp2WTI5d09qaE1URTQyVWs5RFdsSlNUa2xTUWtGTU0weElSVms1UWpORFRVS
+  k8s_topic: healthcheck
 
 secret:
   type: Opaque
