@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/compare/v1.1.1...v1.1.2) (2023-11-18)
+
+
+### Bug Fixes
+
+* removing quay image pull secret ([5205101](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/commit/5205101e72ddfd550534375f81ce0bf8fc83afa5))
+
 ## [1.1.1](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/compare/v1.1.0...v1.1.1) (2023-10-27)
 
 
