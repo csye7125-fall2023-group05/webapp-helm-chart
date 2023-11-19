@@ -4,6 +4,6 @@ metadata:
   name: {{ .Release.Name }}-robocop
   namespace: {{ .Values.namespace }}
   labels: {{include "webapp-helm-chart.labels" . | indent 4 }}
+type: {{ .Values.imagePullSecrets.type }}
 data:
-  .dockerconfigjson: ewogICJhdXRocyI6IHsKICAgICJxdWF5LmlvIjogewogICAgICAiYXV0aCI6ICJjSGR1WTI5eWNDdHliMkp2WTI5d09qaE1URTQyVWs5RFdsSlNUa2xTUWtGTU0weElSVms1UWpORFRVSlVXVk5QTTFGU1FsZEhNRGt6VFVKRk5rdzVXbHBTVGxSYVFUZzJUVEJLTTFvek1sST0iLAogICAgICAiZW1haWwiOiAiIgogICAgfQogIH0KfQ==
-type: kubernetes.io/dockerconfigjson
+  .dockerconfigjson: {{ .Values.imagePullSecrets.dockerConfig }}

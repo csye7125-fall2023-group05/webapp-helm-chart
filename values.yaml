@@ -12,6 +12,10 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: latest
 
+imagePullSecrets:
+  type: kubernetes.io/dockerconfigjson
+  dockerConfig: b2theS1tci1oYWNrZXItY2FsbS1kb3duCg==
+
 namespace: webapp
 
 deployStrat:
@@ -40,7 +44,7 @@ config:
   k8s_broker_1: infra-helm-release-kafka-broker-1.infra-helm-release-kafka-broker-headless.webapp.svc.cluster.local:9094
   k8s_broker_2: infra-helm-release-kafka-broker-2.infra-helm-release-kafka-broker-headless.webapp.svc.cluster.local:9094
   k8s_client_id: webapp
-  k8s_docker_config_json:
+  k8s_docker_config_json: b2theS1tci1oYWNrZXItY2FsbS1kb3duCg==
   k8s_topic: healthcheck
 
 secret:
@@ -89,10 +93,11 @@ volumeMounts: []
 #   mountPath: "/etc/foo"
 #   readOnly: true
 
-global:
-  postgresql:
-    auth:
-      postgresPassword: root
-      username: app_user
-      password: app_user@pswd
-      database: app
+postgresql:
+  auth:
+    username: app_user
+    password: app_user@pswd
+    database: app
+  primary:
+    persistence:
+      size: 1Gi
