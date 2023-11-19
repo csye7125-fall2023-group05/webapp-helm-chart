@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/compare/v1.1.2...v1.1.3) (2023-11-19)
+
+
+### Bug Fixes
+
+* remove quay dockerhub secrets from robocop ([75d24b2](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/commit/75d24b29459e422c95733a2a66e956790600a34b)), closes [#24](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/issues/24)
+
 ## [1.1.2](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/compare/v1.1.1...v1.1.2) (2023-11-18)
 
 
