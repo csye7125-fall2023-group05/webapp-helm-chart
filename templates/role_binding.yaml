@@ -1,0 +1,21 @@
+---
+# This role binding allows {{ .Release.Name }}-role to read pods in the
+# {{ .Values.namespace }} namespace.
+# Need to already have a Role named {{ .Release.Name }}-role in that namespace
+# to create RoleBinding.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ .Release.Name }}-role-binding
+  namespace: {{ .Values.namespace }}
+subjects:
+  # You can specify more than one "subject"
+  - namespace: {{ .Values.namespace }}
+    kind: ServiceAccount
+    name: {{ .Release.Name }}-service-account # "name" is case sensitive
+roleRef:
+  # Role or ClusterRole
+  kind: Role
+  # Must match the name of the Role or ClusterRole you wish to bind to
+  name: {{ .Release.Name }}-role
+  apiGroup: rbac.authorization.k8s.io

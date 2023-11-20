@@ -1,0 +1,12 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: {{ .Values.namespace }}
+  name: {{ .Release.Name }}-role
+rules:
+  - apiGroups:
+    - {{ .Values.config.k8s_group }}
+    resources:
+      - {{ .Values.config.k8s_cr_kind_plural }}
+    verbs: ["create", "update", "patch", "delete"]
