@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/compare/v1.1.3...v1.2.0) (2023-11-20)
+
+
+### Features
+
+* add rbac cluster roles ([edc9862](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/commit/edc98621184b94cf8c875f87ce4c420a16d7d57c)), closes [#26](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/issues/26)
+
 ## [1.1.3](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/compare/v1.1.2...v1.1.3) (2023-11-19)
 
 
