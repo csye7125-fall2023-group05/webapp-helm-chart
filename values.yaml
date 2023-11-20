@@ -54,11 +54,7 @@ podLabel:
   service: api
 
 psql:
-  version: "13.1.5"
-  repository: https://charts.bitnami.com/bitnami
   enabled: true
-  image: postgres
-  tag: 14-alpine
 
 selectorLabel:
   app: webapp
@@ -78,6 +74,8 @@ service:
   dbport: 5432
 
 postgresql:
+  image:
+    tag: 15.5.0-debian-11-r5
   auth:
     username: app_user
     password: app_user@pswd
