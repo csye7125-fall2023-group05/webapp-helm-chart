@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/compare/v1.2.0...v1.2.1) (2023-11-20)
+
+
+### Bug Fixes
+
+* downgrade psql to v15 ([5ca294d](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/commit/5ca294de4c1a4a89ef22d3162ec43492bb65238a)), closes [#28](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/issues/28)
+
 # [1.2.0](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/compare/v1.1.3...v1.2.0) (2023-11-20)
 
 
