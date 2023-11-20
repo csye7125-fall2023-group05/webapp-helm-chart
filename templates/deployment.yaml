@@ -16,6 +16,7 @@ spec:
     metadata:
       labels: {{ include "webapp-helm-chart.labels" . | indent 8 }}
     spec:
+      serviceAccountName: {{ .Release.Name }}-service-account
       imagePullSecrets:
         - name: {{ .Release.Name}}-robocop
       containers:
