@@ -1,3 +1,15 @@
+# [1.3.0](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/compare/v1.2.1...v1.3.0) (2023-11-22)
+
+
+### Bug Fixes
+
+* remove hardocded vars for image ([576e402](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/commit/576e4027b0053a22cd112001d87e1f9c1a2f38ea))
+
+
+### Features
+
+* update image specs as parts ([6859df6](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/commit/6859df634021e28dfbde4f4256037408666ed560)), closes [#30](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/issues/30)
+
 ## [1.2.1](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/compare/v1.2.0...v1.2.1) (2023-11-20)
 
 
