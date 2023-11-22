@@ -21,7 +21,7 @@ spec:
         - name: {{ .Release.Name}}-robocop
       containers:
         - name: {{ .Chart.Name }}
-          image: {{ .Values.image.containerImg }}
+          image: "{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
@@ -127,8 +127,8 @@ spec:
                   key: k8s_topic
       initContainers:
         - name: db-migration
-          image: {{ .Values.image.initContainerImg }}
-          imagePullPolicy: {{.Values.image.pullPolicy}}
+          image: "{{ .Values.initContainer.repository }}/{{ .Values.initContainer.name }}:{{ .Values.initContainer.tag }}"
+          imagePullPolicy: {{ .Values.initContainer.pullPolicy }}
           # set environment variables for flyway db migration
           env:
             - name: FLYWAY_URL
