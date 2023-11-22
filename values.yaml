@@ -8,8 +8,6 @@ image:
   repository: quay.io/pwncorp
   name: webapp
   tag: latest
-  containerImg: quay.io/pwncorp/webapp:latest
-  initContainerImg: quay.io/pwncorp/migrate:latest
   pullPolicy: Always
 
 initContainer:
