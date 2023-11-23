@@ -193,3 +193,12 @@ helm pull bitnami/postgresql --untar
 ```bash
 helm dependency update
 ```
+
+## Enable Metrics Server in Minikube
+
+- In order for HPA to work we need to **ENABLE** `metrics` server which we first need to enable it in the cluster
+- This is the command to enable metrics server in **minikube**
+
+```bash
+ minikube addons enable metrics-server
+```
