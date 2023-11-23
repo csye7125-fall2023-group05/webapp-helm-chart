@@ -19,6 +19,20 @@ spec:
       serviceAccountName: {{ .Release.Name }}-service-account
       imagePullSecrets:
         - name: {{ .Release.Name}}-robocop
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - {{ .Values.podLabel.app }}
+              - key: service
+                operator: In
+                values:
+                - {{ .Values.podLabel.service }}
+            topologyKey: "kubernetes.io/hostname"
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
