@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/compare/v1.4.0...v1.5.0) (2023-11-23)
+
+
+### Features
+
+* adding pod anti affinity ([4ecb918](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/commit/4ecb91869ef7653b648ef073eca91e22b3d08b3c))
+
 # [1.4.0](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/compare/v1.3.0...v1.4.0) (2023-11-23)
 
 
