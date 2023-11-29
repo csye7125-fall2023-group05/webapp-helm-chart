@@ -97,3 +97,7 @@ postgresql:
   primary:
     persistence:
       size: 1Gi
+    labels:
+      app: webapp-db
+    podLabels:
+      app: webapp-db
