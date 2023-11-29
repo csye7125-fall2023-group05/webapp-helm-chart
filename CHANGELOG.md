@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/compare/v1.5.0...v1.6.0) (2023-11-29)
+
+
+### Features
+
+* Adding network policy for webapp-db ([21ee5d8](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/commit/21ee5d8485ee92d03345280700e5f992a1182645))
+
 # [1.5.0](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/compare/v1.4.0...v1.5.0) (2023-11-23)
 
 
