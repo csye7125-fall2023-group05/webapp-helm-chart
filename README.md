@@ -202,3 +202,14 @@ helm dependency update
 ```bash
  minikube addons enable metrics-server
 ```
+## Enable Cilium for N/w Policies to work in Minikube
+- In order to run the below steps your cluster(minikube) should be up
+- Also, we need to install `cilium`to run the below commands
+
+```bash
+# to install cilium in cluster
+cilium install
+
+# to test the connectivity with cluster
+cilium connectivity test
+```
