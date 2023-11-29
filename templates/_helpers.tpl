@@ -39,6 +39,13 @@ service: {{ .Values.podLabel.service }}
 {{- end }}
 
 {{/*
+DB labels
+*/}}
+{{- define "webapp-helm-chart.db.labels" }}
+app: {{ .Values.postgresql.primary.podLabels.app }}
+{{- end }}
+
+{{/*
 Selector labels
 */}}
 {{- define "webapp-helm-chart.selectorLabels" -}}
