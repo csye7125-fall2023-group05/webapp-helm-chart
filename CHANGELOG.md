@@ -1,3 +1,10 @@
+## [1.7.1](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/compare/v1.7.0...v1.7.1) (2023-12-01)
+
+
+### Bug Fixes
+
+* adding namespace in limit range resource ([b72ff92](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/commit/b72ff9218ffb86cb1d2f11f4c7b800a6253833ad))
+
 # [1.7.0](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/compare/v1.6.0...v1.7.0) (2023-12-01)
 
 
