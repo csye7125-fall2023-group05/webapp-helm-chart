@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/compare/v1.6.0...v1.7.0) (2023-12-01)
+
+
+### Features
+
+* add resource limits ([7d50084](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/commit/7d5008499655b6f37a156f6cb7ffa535e8a5a0cd))
+
 # [1.6.0](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/compare/v1.5.0...v1.6.0) (2023-11-29)
 
 
