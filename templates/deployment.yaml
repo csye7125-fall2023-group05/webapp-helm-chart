@@ -37,14 +37,14 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          #TODO: Need to add requests and limits for every container
-          # resources:
-          #   requests:
-          #     memory: "1Gi"
-          #     cpu: "1000m"
-          #   limits:
-          #     memory: "1Gi"
-          #     cpu: "1000m"
+          #     cpu: "1000m"x
+          resources:
+            requests: 
+              memory: {{ .Values.resources.requests.memory}}
+              cpu: {{ .Values.resources.requests.cpu}}
+            limits:
+              memory: {{ .Values.resources.limits.memory}}
+              cpu: {{ .Values.resources.limits.cpu}}
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}

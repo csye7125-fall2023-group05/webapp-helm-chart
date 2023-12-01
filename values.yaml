@@ -101,3 +101,18 @@ postgresql:
       app: webapp-db
     podLabels:
       app: webapp-db
+    resources:
+      limits:
+        memory: "1024Mi"
+        cpu: "1"
+      requests:
+        memory: "128Mi"
+        cpu: "0.5"
+
+resources:
+  limits:
+    memory: "512Mi"
+    cpu: "0.6"
+  requests:
+    memory: "128Mi"
+    cpu: "0.2"
