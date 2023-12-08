@@ -202,7 +202,16 @@ helm dependency update
 ```bash
  minikube addons enable metrics-server
 ```
+
 ## Enable Cilium for N/w Policies to work in Minikube
+
+- Install `cilium-cli` on your local workstation
+
+```bash
+# macOS only
+brew install cilium-cli
+```
+
 - In order to run the below steps your cluster(minikube) should be up
 - Also, we need to install `cilium`to run the below commands
 
@@ -212,4 +221,32 @@ cilium install
 
 # to test the connectivity with cluster
 cilium connectivity test
+```
+
+## Istio Setup  [official documentation](https://istio.io/latest/docs/setup/getting-started/)
+
+- Download & move in that downloaded directory of Istio
+
+```bash
+curl -L https://istio.io/downloadIstio | sh -
+export PATH=$PWD/bin:$PATH
+```
+
+- Install istio
+
+```bash
+istioctl install
+```
+
+- Label the namespace where we would want our Envoy Proxy to be deployed
+
+```bash
+# this helps istio to identify where to deploy envoy proxies as a side car
+kubectl label namespace webapp istio-injection=enabled
+```
+
+- After installing helm chart we would need to create a tunnel if testing in minikube else just need to use the external IP exposed by the istio-ingress service
+
+```bash
+minikube tunnel
 ```

@@ -32,7 +32,7 @@ spec:
                 operator: In
                 values:
                 - {{ .Values.podLabel.service }}
-            topologyKey: "kubernetes.io/hostname"
+            topologyKey: "topology.kubernetes.io/zone"
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
