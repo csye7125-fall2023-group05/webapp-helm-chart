@@ -1,0 +1,15 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: {{ .Release.Name }}-gateway
+  namespace: {{ .Values.istio.namespace }}
+spec:
+  selector:
+    istio: ingress
+  servers:
+  - port:
+      number: {{ .Values.istio.gateway.port }} # the Gateway port to be exposed
+      name: http
+      protocol: HTTP
+    hosts:
+    - "*"  # accepting requests from all the hosts

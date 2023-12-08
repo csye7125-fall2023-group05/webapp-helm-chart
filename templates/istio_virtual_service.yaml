@@ -1,0 +1,33 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: {{ .Release.Name }}-vs
+  namespace: {{ .Values.istio.namespace }}
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - {{ .Release.Name }}-gateway
+  http:
+  - match:
+    - port: {{ .Values.istio.gateway.port }}  # to match the gateway port basically to bind this to gateway
+    route:
+    - destination:
+        host: {{ .Release.Name }}-service.{{ .Values.namespace }}.svc.cluster.local # to match the service where we need to send the req (here we need to pass the Fully qualified domain name because our service is in different ns as from VS AND GATEWAY)
+        port:
+          number: {{.Values.service.port}} # the service port of the webapp
+  # - route:
+  #   - destination:
+  #       host: infra-helm-release-kafka-broker-0.infra-helm-release-kafka-broker-headless.deps.svc.cluster.local
+  #       port:
+  #         number: 9094
+  # - route:
+  #   - destination:
+  #       host: infra-helm-release-kafka-broker-0.infra-helm-release-kafka-broker-headless.deps.svc.cluster.local
+  #       port:
+  #         number: 9094
+  # - route:
+  #   - destination:
+  #       host: infra-helm-release-kafka-broker-0.infra-helm-release-kafka-broker-headless.deps.svc.cluster.local
+  #       port:
+  #         number: 9094
