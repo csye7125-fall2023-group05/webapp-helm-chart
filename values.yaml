@@ -7,7 +7,7 @@ replicaCount: 3
 image:
   repository: quay.io/pwncorp
   name: webapp
-  tag: latest
+  tag: 1.2.1
   pullPolicy: Always
 
 initContainer:
@@ -109,7 +109,7 @@ postgresql:
     resources:
       limits:
         memory: "768Mi"
-        cpu: "1"
+        cpu: "0.5"
       requests:
         memory: "128Mi"
         cpu: "0.5"
@@ -117,7 +117,7 @@ postgresql:
 resources:
   limits:
     memory: "512Mi"
-    cpu: "0.6"
+    cpu: "0.5"
   requests:
     memory: "512Mi"
-    cpu: "0.6"
+    cpu: "0.5"
