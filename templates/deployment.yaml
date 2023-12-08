@@ -37,9 +37,8 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          #     cpu: "1000m"x
           resources:
-            requests: 
+            requests:
               memory: {{ .Values.resources.requests.memory}}
               cpu: {{ .Values.resources.requests.cpu}}
             limits:
