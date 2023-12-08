@@ -1,3 +1,15 @@
+# [1.8.0](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/compare/v1.7.1...v1.8.0) (2023-12-08)
+
+
+### Bug Fixes
+
+* change n/w topology for pod anti-affinity ([8567f72](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/commit/8567f724556ac45b65232380914cab5af421eb83))
+
+
+### Features
+
+* add Istio Service Mesh Gateway & Virtual Service ([390cb72](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/commit/390cb72818fa27e621079a5810a325d1281671ee))
+
 ## [1.7.1](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/compare/v1.7.0...v1.7.1) (2023-12-01)
 
 
