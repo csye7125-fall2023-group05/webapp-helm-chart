@@ -1,3 +1,10 @@
+## [1.8.1](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/compare/v1.8.0...v1.8.1) (2023-12-08)
+
+
+### Bug Fixes
+
+* update replicaCount and resource request and limits for pods in ([68b79f3](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/commit/68b79f3799b07df6fb5cfa6cefd06556f3420395))
+
 # [1.8.0](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/compare/v1.7.1...v1.8.0) (2023-12-08)
 
 
