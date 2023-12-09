@@ -1,3 +1,10 @@
+## [1.8.2](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/compare/v1.8.1...v1.8.2) (2023-12-09)
+
+
+### Bug Fixes
+
+* install latest image by default ([2c7f776](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/commit/2c7f776f0ba3b481bb08f530247a2aacbd6a50cc))
+
 ## [1.8.1](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/compare/v1.8.0...v1.8.1) (2023-12-08)
 
 
