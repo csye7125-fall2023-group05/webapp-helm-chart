@@ -7,7 +7,7 @@ replicaCount: 3
 image:
   repository: quay.io/pwncorp
   name: webapp
-  tag: 1.2.1
+  tag: latest
   pullPolicy: Always
 
 initContainer:
