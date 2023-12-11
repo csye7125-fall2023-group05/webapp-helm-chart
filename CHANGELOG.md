@@ -1,3 +1,10 @@
+## [1.8.3](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/compare/v1.8.2...v1.8.3) (2023-12-11)
+
+
+### Bug Fixes
+
+* adding Internal Ip to webapp service ([c7c0e24](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/commit/c7c0e24450b03187df5dde7bd9c7b2b9922eeb21))
+
 ## [1.8.2](https://github.com/csye7125-fall2023-group05/webapp-helm-chart/compare/v1.8.1...v1.8.2) (2023-12-09)
 
 
