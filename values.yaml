@@ -88,7 +88,7 @@ readinessConfig:
   periodSeconds: 10
 
 service:
-  type: LoadBalancer
+  type: ClusterIP
   port: 3000
   dbport: 5432
 
